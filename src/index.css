@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=REM:ital,wght@0,100..900;1,100..900&family=Teachers:ital,wght@0,400..800;1,400..800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+	font-family: "REM", serif;
+}
+
+.shadow_main {
+	box-shadow: 0px 143px 40px 0px rgba(0, 0, 0, 0.00), 0px 92px 37px 0px rgba(0, 0, 0, 0.01), 0px 51px 31px 0px rgba(0, 0, 0, 0.05), 0px 23px 23px 0px rgba(0, 0, 0, 0.04), 0px 6px 13px 0px rgba(0, 0, 0, 0.010);
+}
+
+.second_font {
+	font-family: "Teachers", serif;
+}
+
+.swiper-slide {
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center !important;
+}
+
+.swiper-button-next {
+	transform: translateX(24px);
+}
+
+.swiper-button-prev {
+	transform: translateX(-24px);
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+	background-color: white;
+	width: 48px !important;
+	height: 48px !important;
+	border-radius: 50%;
+	right: 10px;
+	margin: -10px;
+	transition: 0.4s all;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+	background-color: #f5f5f5;
+	color: #fff !important;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+	font-size: 18px !important;
+    color: #363538;
+}
