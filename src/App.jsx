@@ -471,7 +471,7 @@ const App = () => {
               </div>
             )}
 
-            <div id="abouts" className="our-major mt-[60px] relative">
+            <div id="abouts" className="our-major mt-[80px] relative">
               <div
                 data-aos="fade-up"
                 data-aos-anchor-placement="top-bottom"
