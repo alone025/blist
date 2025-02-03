@@ -1,13 +1,14 @@
 import product_image from "./product_item.png";
-import product from "./product.png";
-import logo from "./logo.png";
+import product from "./swipper.png";
+import logo from "./newLogo22.svg";
+import logoBar2 from "./newLogo22.svg"
 
-import f1 from "./products/1.png";
-import f2 from "./products/2.png";
-import f3 from "./products/3.png";
-import f4 from "./products/4.png";
-import f5 from "./products/5.png";
-import f6 from "./products/6.png";
-import f7 from "./products/7.png";
+import f1 from "./products/smallMan.svg";
+import f2 from "./products/smallMan.svg";
+import f3 from "./products/smallMan.svg";
+import f4 from "./products/smallMan.svg";
+import f5 from "./products/smallMan.svg";
+import f6 from "./products/smallMan.svg";
+import f7 from "./products/smallMan.svg";
 
-export { product_image, product, logo, f1, f2, f3, f4, f5, f6, f7 };
+export { product_image, product, logo, f1, f2, f3, f4, f5, f6, f7, logoBar2 };
