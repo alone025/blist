@@ -11,4 +11,7 @@ import f5 from "./products/smallMan.svg";
 import f6 from "./products/smallMan.svg";
 import f7 from "./products/smallMan.svg";
 
-export { product_image, product, logo, f1, f2, f3, f4, f5, f6, f7, logoBar2 };
+import redSkin from "./redSkin.svg"
+import greenSkin from "./greenSkin.svg"
+
+export { product_image, product, logo, f1, f2, f3, f4, f5, f6, f7, logoBar2, redSkin, greenSkin };

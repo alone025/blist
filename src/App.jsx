@@ -1,9 +1,10 @@
-import { logo } from "./assets";
+import { logo, greenSkin, redSkin } from "./assets";
 import Wrapper from "./layout/wrapper";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "swiper/css";
 import "swiper/css/navigation";
+
 
 import { useEffect, useState } from "react";
 import { product_data } from "./data/data";
@@ -268,40 +269,55 @@ const App = () => {
                 </div>
 
                 <div className="cards flex flex-row flex-wrap lg:flex-nowrap  mt-6">
-                  <div className="carde1 carde w-1/2 md:w-1/3 lg:w-full p-1 flex justify-center cursor-pointer">
-                    <div className="border-4 pb-0 hover:scale-105 duration-200 border-solid rounded p-2">
+                  <div  className="carde1 carde w-1/2 md:w-1/3 lg:w-full p-2 flex justify-center cursor-pointer">
+                    <a href="#productss">
+                    <div className="border pb-0 hover:scale-105 duration-200 border-solid rounded-3xl p-2">
                       <img src={product_data[0].images[0].img} alt="" />
+                      <p className="font-mono text-center text-base mt-1.5 leading-[normal] pb-3 font-semibold">{product_data[0].name}</p>
                     </div>
+                    </a>
                   </div>
-                  <div className="carde2 carde w-1/2 md:w-1/3 lg:w-full p-1 flex justify-center cursor-pointer">
-                    <div className="border-4 pb-0 hover:scale-105 duration-200 border-solid rounded p-2">
-                      <img src={product_data[1].images[0].img} alt="" />
+                  <div  className="carde2 carde w-1/2 md:w-1/3 lg:w-full p-2 flex justify-center cursor-pointer">
+                    <a href="#productss">
+                    <div className="border pb-0 hover:scale-105 duration-200 border-solid rounded-3xl p-2">
+                      <img src={product_data[1].images[0].img} alt="" className="relative -left-[15px]" />
+                      <p className="font-mono text-center text-base mt-1.5 leading-[normal] pb-3 font-semibold">{product_data[1].name}</p>
                     </div>
+                    </a>
                   </div>{" "}
-                  <div className="carde3 carde w-1/2 md:w-1/3 lg:w-full p-1 flex justify-center cursor-pointer">
-                    <div className="border-4 pb-0 hover:scale-105 duration-200 border-solid rounded p-2">
+                  <div  className="carde3 carde w-1/2 md:w-1/3 lg:w-full p-2 flex justify-center cursor-pointer">
+                   <a href="#productss">
+                   <div className="border pb-0 hover:scale-105 duration-200 border-solid rounded-3xl p-2">
                       <img src={product_data[2].images[0].img} alt="" />
+                      <p className="font-mono text-center text-base mt-1.5 leading-[normal] pb-3 font-semibold">{product_data[2].name}</p>
                     </div>
+                   </a>
                   </div>{" "}
-                  <div className="carde4 carde w-1/2 md:w-1/3 lg:w-full p-1 flex justify-center cursor-pointer">
-                    <div className="border-4 pb-0 hover:scale-105 duration-200 border-solid rounded p-2">
+                  <div  className="carde4 carde w-1/2 md:w-1/3 lg:w-full p-2 flex justify-center cursor-pointer">
+                    <a href="#productss">
+                    <div className="border pb-0 hover:scale-105 duration-200 border-solid rounded-3xl p-2">
                       <img src={product_data[3].images[0].img} alt="" />
+                      <p className="font-mono text-center text-base mt-1.5 leading-[normal] pb-3 font-semibold">{product_data[3].name}</p>
                     </div>
+                    </a>
                   </div>{" "}
-                  <div className="carde5 carde w-1/2 md:w-1/3 lg:w-full p-1 flex justify-center cursor-pointer">
-                    <div className="border-4 pb-0 hover:scale-105 duration-200 border-solid rounded p-2">
-                      <img src={product_data[4].images[0].img} alt="" />
+                  <div  className="carde5 carde w-1/2 md:w-1/3 lg:w-full p-2 flex justify-center cursor-pointer">
+                    <a href="#productss">
+                    <div className="border pb-0 hover:scale-105 duration-200 border-solid rounded-3xl p-2">
+                      <img src={product_data[4].images[0].img} alt="" className="relative -left-[13px]"  />
+                      <p className="font-mono text-center text-base mt-1.5 leading-[normal] pb-3 font-semibold">{product_data[4].name}</p>
                     </div>
+                    </a>
                   </div>
-                  <div className="carde6 carde w-1/2 md:w-1/3 lg:w-full p-1 flex justify-center cursor-pointer">
-                    <div className="border-4 pb-0 hover:scale-105 duration-200 border-solid rounded p-2">
+                  {/* <div  className="carde6 carde w-1/2 md:w-1/3 lg:w-full p-2 flex justify-center cursor-pointer">
+                    <a className="w-full" href="#productss"><div className=" pb-0 hover:scale-105 duration-200 border-solid rounded-3xl p-2">
                       <img
-                        src={product_data[5].images[0].img}
+                        src={''}
                         alt=""
                         className="max-w-[204px] w-full"
                       />
-                    </div>
-                  </div>
+                    </div></a>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -402,15 +418,7 @@ const App = () => {
                 })}
               </div>
             </div>
-            <div className="show-more relative z-10 mt-10 flex justify-center">
-              <button
-                data-aos="fade-up"
-                data-aos-duration="1000"
-                className="bg-[#161616] cursor-pointer hover:!scale-105 transition-all hover:!duration-500 rounded-[30px] py-2 px-[51px] text-[13px] leading-[normal] text-white font-medium font-mono"
-              >
-                Посмотреть все
-              </button>
-            </div>
+           
 
             {selectedProduct && (
               <div
@@ -452,9 +460,7 @@ const App = () => {
                   <p className="text-gray-600 mt-1 font-mono">
                     {selectedProduct.desc}
                   </p>
-                  {/* <p className="text-blue-600 font-semibold">
-                    {selectedProduct.price}
-                  </p> */}
+                  
                   <button
                     className="w-full font-mono bg-green-500 text-white p-2 rounded mt-3"
                     onClick={() => addToCart(selectedProduct)}
@@ -543,7 +549,7 @@ const App = () => {
                 </div>
 
                 <img
-                  src="/src/assets/redSkin.svg"
+                  src={redSkin}
                   alt="redSkin"
                   className="hidden lg:block absolute right-0 bottom-0"
                 />
@@ -553,7 +559,7 @@ const App = () => {
             <div className="services mt-[67px] p-[30px] flex flex-row items-center justify-between">
               <div className="lfte max-w-[738px]">
                 <div className="tpe">
-                  <div className="br border border-solid border-[#8BCC00] rounded-[30px] mb-[30px] text-[#8BCC00] font-[math] font-bold leading-[21.7px] text-sm max-w-[238px] h-[34px] flex items-center justify-center">
+                  <div className="br font-mono border border-solid border-[#8BCC00] rounded-[30px] mb-[30px] text-[#8BCC00] font-bold leading-[21.7px] text-sm max-w-[238px] h-[34px] flex items-center justify-center">
                     Услуги
                   </div>
                 </div>
@@ -575,7 +581,7 @@ const App = () => {
               </div>
 
               <div className="rggt hidden lg:block">
-                <img src="/src/assets/greenSkin.svg" alt="greenSkin" />
+                <img src={greenSkin} alt="greenSkin" />
               </div>
             </div>
 
@@ -657,7 +663,7 @@ const App = () => {
                           id="phone"
                           inputMode="numeric"
                           placeholder="Телефон"
-                          className="outline-none border-none font-mono p-2 text-lg rounded-md"
+                          className="outline-none border-none font-mono py-3 px-4 text-lg rounded-md"
                         />
                       </div>
                       <div className="name flex flex-col gap-[2px] md:max-w-[40%] w-full">
@@ -674,7 +680,7 @@ const App = () => {
                           name="name"
                           id="name"
                           placeholder="Имя"
-                          className="outline-none border-none font-mono p-2 text-lg rounded-md"
+                          className="outline-none border-none font-mono py-3 px-4 text-lg rounded-md"
                         />
                       </div>
                     </div>
@@ -699,7 +705,7 @@ const App = () => {
                           id="msg"
                           inputMode="text"
                           placeholder="Сообщение"
-                          className="outline-none border-none font-mono p-2 text-lg rounded-md"
+                          className="outline-none border-none font-mono py-3 px-4 text-lg rounded-md"
                         />
                       </div>
                     </div>
@@ -872,7 +878,7 @@ const App = () => {
                 <h2 className="text-lg lg:text-xl font-mono font-bold mb-3">
                   {fromCart ? "Заказ" : "Свяжитесь с нами"}
                 </h2>
-                <div className="phone flex mb-2 flex-col gap-[2px] w-full">
+                <div className="phone flex mb-3 flex-col gap-[2px] w-full">
                   <label
                     htmlFor="phone"
                     className="text-base font-mono text-black/70"
@@ -887,7 +893,7 @@ const App = () => {
                     id="phone"
                     inputMode="numeric"
                     placeholder="Телефон"
-                    className="outline-none border font-mono p-2 text-lg rounded-md"
+                    className="outline-none border font-mono py-3 px-4 text-lg rounded-md"
                   />
                 </div>
                 <div className="email flex flex-col gap-[2px] w-full">
@@ -904,10 +910,10 @@ const App = () => {
                     value={email}
                     id="email"
                     placeholder="E-mail"
-                    className="outline-none border font-mono p-2 text-lg rounded-md"
+                    className="outline-none border font-mono py-3 px-4 text-lg rounded-md"
                   />
                 </div>
-                <div className="name flex flex-col mt-2 gap-[2px] w-full">
+                <div className="name flex flex-col mt-3 gap-[2px] w-full">
                   <label
                     htmlFor="name"
                     className="text-base font-mono text-black/70"
@@ -921,11 +927,11 @@ const App = () => {
                     name="name"
                     id="name"
                     placeholder="Имя"
-                    className="outline-none border font-mono p-2 text-lg rounded-md"
+                    className="outline-none border font-mono py-3 px-4 text-lg rounded-md"
                   />
                 </div>
                 <button
-                  className="w-full bg-[#8BCC00] font-mono rounded-[30px] text-white py-3 px-2 mt-2"
+                  className="w-full bg-[#8BCC00] font-mono rounded-[30px] text-white py-3 px-2 mt-3"
                   onClick={sendMessage}
                 >
                   Отправлять

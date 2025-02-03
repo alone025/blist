@@ -38,6 +38,7 @@ export const product_data = [
     desc: "Классические сигнальные жилеты.",
 
     images: [
+   
       {
         img: "https://i.ibb.co/znM6PdG/image.png",
       },
