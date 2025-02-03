@@ -5,7 +5,6 @@ import "aos/dist/aos.css";
 import "swiper/css";
 import "swiper/css/navigation";
 
-
 import { useEffect, useState } from "react";
 import { product_data } from "./data/data";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -79,12 +78,12 @@ const App = () => {
         chat_id: chatId,
         text: textt,
       }),
-    }).then(()=>{
-      setEmail('')
-      setName('')
-      setPhone('')
-      setMSG('')
-      setCart([])
+    }).then(() => {
+      setEmail("");
+      setName("");
+      setPhone("");
+      setMSG("");
+      setCart([]);
     });
   };
 
@@ -93,12 +92,12 @@ const App = () => {
       <div>
         <div
           data-aos="zoom-in"
-          data-aos-duration="100"
+          data-aos-duration="1000"
           className="w-[610px] z-20 h-[610px] right-[41px] -top-[163px] absolute bg-[#C0EF7E] rounded-full blur-[125px]"
         />
         <div
           data-aos="zoom-in"
-          data-aos-duration="100"
+          data-aos-duration="1000"
           className="w-[411px] z-20 h-[411px] -right-[139px] -top-[112px] absolute bg-[#C0EF7E] rounded-full blur-[125px]"
         />
       </div>
@@ -110,7 +109,7 @@ const App = () => {
 
             <div className="w-full relative z-30 mt-[35px] xl:h-[880px] py-10 md:py-[55px] px-5 md:px-10 xl:px-[85px] bg-[#FFFFFF8C] rounded-[60px] backdrop-blur-[20px]">
               <div
-                data-aos-duration="100"
+                data-aos-duration="1000"
                 data-aos="fade-down"
                 className="w-full justify-between items-center flex"
               >
@@ -139,6 +138,7 @@ const App = () => {
 
                 <a>
                   <img
+                    
                     className="h-[44px] lg:h-[51px] cursor-pointer"
                     alt="logo"
                     src={logo}
@@ -261,52 +261,73 @@ const App = () => {
               </div>
 
               <div className="mt-[50px] gap-5 xl:gap-2 flex flex-col justify-between items-center">
-                <div className="logo-bar w-full flex flex-col items-center justify-center">
+                <div data-aos-duration="1000"
+                    data-aos="fade-up" className="logo-bar w-full flex flex-col items-center justify-center">
                   <img src={logo} alt="blitz" className="w-1/3" />
                   <p className="font-mono text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-center mt-8">
                     Сигнальная одежда и СИЗ <br /> опт / розница
                   </p>
                 </div>
 
-                <div className="cards flex flex-row flex-wrap lg:flex-nowrap  mt-6">
-                  <div  className="carde1 carde w-1/2 md:w-1/3 lg:w-full p-2 flex justify-center cursor-pointer">
+                <div
+                data-aos-duration="1000"
+                data-aos="fade-up" className="cards flex flex-row flex-wrap lg:flex-nowrap  mt-6">
+                  <div className="carde1 carde w-1/2 md:w-1/3 lg:w-full p-2 flex justify-center cursor-pointer">
                     <a href="#productss">
-                    <div className="border pb-0 hover:scale-105 duration-200 border-solid rounded-3xl p-2">
-                      <img src={product_data[0].images[0].img} alt="" />
-                      <p className="font-mono text-center text-base mt-1.5 leading-[normal] pb-3 font-semibold">{product_data[0].name}</p>
-                    </div>
+                      <div className="border pb-0 hover:scale-105 duration-200 border-solid rounded-3xl p-2">
+                        <img src={product_data[0].images[0].img} alt="" />
+                        <p className="font-mono text-center text-base mt-1.5 leading-[normal] pb-3 font-semibold">
+                          {product_data[0].name}
+                        </p>
+                      </div>
                     </a>
                   </div>
-                  <div  className="carde2 carde w-1/2 md:w-1/3 lg:w-full p-2 flex justify-center cursor-pointer">
+                  <div className="carde2 carde w-1/2 md:w-1/3 lg:w-full p-2 flex justify-center cursor-pointer">
                     <a href="#productss">
-                    <div className="border pb-0 hover:scale-105 duration-200 border-solid rounded-3xl p-2">
-                      <img src={product_data[1].images[0].img} alt="" className="relative -left-[15px]" />
-                      <p className="font-mono text-center text-base mt-1.5 leading-[normal] pb-3 font-semibold">{product_data[1].name}</p>
-                    </div>
+                      <div className="border pb-0 hover:scale-105 duration-200 border-solid rounded-3xl p-2">
+                        <img
+                          src={product_data[1].images[0].img}
+                          alt=""
+                          className="relative -left-[15px]"
+                        />
+                        <p className="font-mono text-center text-base mt-1.5 leading-[normal] pb-3 font-semibold">
+                          {product_data[1].name}
+                        </p>
+                      </div>
                     </a>
                   </div>{" "}
-                  <div  className="carde3 carde w-1/2 md:w-1/3 lg:w-full p-2 flex justify-center cursor-pointer">
-                   <a href="#productss">
-                   <div className="border pb-0 hover:scale-105 duration-200 border-solid rounded-3xl p-2">
-                      <img src={product_data[2].images[0].img} alt="" />
-                      <p className="font-mono text-center text-base mt-1.5 leading-[normal] pb-3 font-semibold">{product_data[2].name}</p>
-                    </div>
-                   </a>
-                  </div>{" "}
-                  <div  className="carde4 carde w-1/2 md:w-1/3 lg:w-full p-2 flex justify-center cursor-pointer">
+                  <div className="carde3 carde w-1/2 md:w-1/3 lg:w-full p-2 flex justify-center cursor-pointer">
                     <a href="#productss">
-                    <div className="border pb-0 hover:scale-105 duration-200 border-solid rounded-3xl p-2">
-                      <img src={product_data[3].images[0].img} alt="" />
-                      <p className="font-mono text-center text-base mt-1.5 leading-[normal] pb-3 font-semibold">{product_data[3].name}</p>
-                    </div>
+                      <div className="border pb-0 hover:scale-105 duration-200 border-solid rounded-3xl p-2">
+                        <img src={product_data[2].images[0].img} alt="" />
+                        <p className="font-mono text-center text-base mt-1.5 leading-[normal] pb-3 font-semibold">
+                          {product_data[2].name}
+                        </p>
+                      </div>
                     </a>
                   </div>{" "}
-                  <div  className="carde5 carde w-1/2 md:w-1/3 lg:w-full p-2 flex justify-center cursor-pointer">
+                  <div className="carde4 carde w-1/2 md:w-1/3 lg:w-full p-2 flex justify-center cursor-pointer">
                     <a href="#productss">
-                    <div className="border pb-0 hover:scale-105 duration-200 border-solid rounded-3xl p-2">
-                      <img src={product_data[4].images[0].img} alt="" className="relative -left-[13px]"  />
-                      <p className="font-mono text-center text-base mt-1.5 leading-[normal] pb-3 font-semibold">{product_data[4].name}</p>
-                    </div>
+                      <div className="border pb-0 hover:scale-105 duration-200 border-solid rounded-3xl p-2">
+                        <img src={product_data[3].images[0].img} alt="" />
+                        <p className="font-mono text-center text-base mt-1.5 leading-[normal] pb-3 font-semibold">
+                          {product_data[3].name}
+                        </p>
+                      </div>
+                    </a>
+                  </div>{" "}
+                  <div className="carde5 carde w-1/2 md:w-1/3 lg:w-full p-2 flex justify-center cursor-pointer">
+                    <a href="#productss">
+                      <div className="border pb-0 hover:scale-105 duration-200 border-solid rounded-3xl p-2">
+                        <img
+                          src={product_data[4].images[0].img}
+                          alt=""
+                          className="relative -left-[13px]"
+                        />
+                        <p className="font-mono text-center text-base mt-1.5 leading-[normal] pb-3 font-semibold">
+                          {product_data[4].name}
+                        </p>
+                      </div>
                     </a>
                   </div>
                   {/* <div  className="carde6 carde w-1/2 md:w-1/3 lg:w-full p-2 flex justify-center cursor-pointer">
@@ -418,7 +439,6 @@ const App = () => {
                 })}
               </div>
             </div>
-           
 
             {selectedProduct && (
               <div
@@ -460,7 +480,7 @@ const App = () => {
                   <p className="text-gray-600 mt-1 font-mono">
                     {selectedProduct.desc}
                   </p>
-                  
+
                   <button
                     className="w-full font-mono bg-green-500 text-white p-2 rounded mt-3"
                     onClick={() => addToCart(selectedProduct)}
@@ -726,11 +746,7 @@ const App = () => {
             <footer className="mt-[250px]">
               <div className="tope flex flex-col md:flex-wrap gap-4 lg:flex-nowrap md:flex-row justify-between">
                 <div className="lg flex flex-col gap-5">
-                  <img
-                    src="/src/assets/newLogo22.svg"
-                    alt=""
-                    className="max-w-[167px]"
-                  />
+                  <img src={logo} alt="" className="max-w-[167px]" />
                   <p className="text-sm sm:text-base text-[#000000B2] font-mono max-w-[290px] font-light">
                     Мы, компания, окторза занимаяется оптовой и рознично
                     продажей сигнальной одежды. Являемся продавцами на валберис
