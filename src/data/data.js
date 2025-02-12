@@ -62,7 +62,7 @@ export const product_data = [
   {
     name: "Лямки эластичные сигнальные стандарт",
     colors: "10 цветов",
-    sizes: "150-180",
+    sizes: "3 размера",
     linkToWB:
       "https://www.wildberries.ru/catalog/144278809/detail.aspx?targetUrl=GP",
     rec: "Соотвествуют требованиям безопасности, при необходимости предоставим декларацию соотвествия",
@@ -91,9 +91,9 @@ export const product_data = [
   },
 
   {
-    name: "Лямки эластичные сигнальные детские",
+    name: "Лямки детские эластичные",
     colors: "Лимонный и Синый",
-    sizes: "от 28 до 42",
+    sizes: "Детский размер",
     linkToWB:
       "https://www.wildberries.ru/catalog/247956039/detail.aspx?targetUrl=GP",
     rec: "Созданы специально для детей. Не подлежат обязательной сертификации",
@@ -151,7 +151,7 @@ export const product_data = [
 
   {
     name: "Очки защитные",
-    colors: "Прозрачные, янтарные, затмненные",
+    colors: "Прозрачные, темные, янтарные",
     sizes: "-",
     linkToWB: "",
     rec: "Соотвествуют требованиям безопасности, при необходимости предоставим декларацию соотвествия.",
@@ -159,11 +159,11 @@ export const product_data = [
 
     images: [
       {
-        img: "https://i.ibb.co/6FYFZPP/image.png",
+        img: "https://i.ibb.co/PvvBwySm/rm34.png",
       },
-      {
-        img: "https://i.ibb.co/6FYFZPP/image.png",
-      },
+      // {
+      //   img: "https://i.ibb.co/Sjc2CF6/rm33.png",
+      // },
     ],
   },
 
@@ -173,7 +173,7 @@ export const product_data = [
     sizes: "-",
     linkToWB: "",
     rec: "Данная продукция находится в стадии разработки, как только появится у нас в продаже, мы разместим информацию на сайте.",
-    desc: "Oтсуствую в свободной продаже, можно заказать.",
+    desc: "Впервые на рынке, шаски с СОП полосой.",
 
     images: [
       {

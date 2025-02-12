@@ -8,14 +8,16 @@ import "swiper/css/navigation";
 import { useEffect, useState } from "react";
 import { product_data } from "./data/data";
 import { Swiper, SwiperSlide } from "swiper/react";
+import emailjs from 'emailjs-com';
+
+emailjs.init('lOYFN_rtfegZs3TTp');
 
 const App = () => {
   const [menu, setMenu] = useState(false);
 
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [cart, setCart] = useState([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [fromCart, setFromCart] = useState(false);
+  
+ 
 
   const [isContactOpen, setIsContactOpen] = useState(false);
 
@@ -23,6 +25,9 @@ const App = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [msg, setMSG] = useState("");
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [formData, setFormData] = useState({ name: "", phone: "" });
 
   useEffect(() => {
     AOS.init({});
@@ -33,42 +38,42 @@ const App = () => {
     document.body.style.overflow = "hidden";
   };
 
-  const addToCart = (product) => {
-    setCart((prevCart) => {
-      const existingProduct = prevCart.find((item) => item.id === product.id);
-      if (existingProduct) {
-        return prevCart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      } else {
-        return [...prevCart, { ...product, quantity: 1 }];
-      }
-    });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const removeFromCart = (productId) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    emailjs.send('service_htnerd4', 'template_7iqq32v', formData)
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+        setIsOpen(false)
+      })
+      .catch((err) => {
+        console.error('FAILED...', err);
+      });
+
   };
+  
+  
   const handleClose = () => {
     setMenu(false);
     document.body.style.overflow = "";
   };
 
   const sendMessage = async () => {
-    const cartMessage = cart
-      .map((item) => `${item.name} - ${item.quantity}`)
-      .join("\n");
     const textt = `
       Имя: ${name},
       Электронная почта: ${email},
       Телефон: ${phone},
       Сообщение: ${msg},
-      Корзина: ${cart.length !== 0 ? cartMessage : "Корзина пуста"}
     `;
     const chatId = "-1002358384632";
     const botToken = "7404948259:AAF2DIr34yY3kjkgKmzDtHly0O3vOePcmGA";
+  
+   
     await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
       method: "POST",
       headers: {
@@ -78,14 +83,30 @@ const App = () => {
         chat_id: chatId,
         text: textt,
       }),
-    }).then(() => {
-      setEmail("");
-      setName("");
-      setPhone("");
-      setMSG("");
-      setCart([]);
     });
+  
+    const emailData = {
+      name:name,
+      email:email,
+      phone:phone,
+      mss: msg,
+    };
+  
+    await emailjs.send("service_htnerd4", "template_7iqq32v", emailData)
+      .then(() => {
+        console.log("Email sent successfully");
+      })
+      .catch((err) => {
+        console.error("Failed to send email:", err);
+      });
+  
+    setEmail("");
+    setName("");
+    setPhone("");
+    setMSG("");
+    setIsContactOpen(false);
   };
+  
 
   return (
     <div className="bg-[#D6DDDE] overflow-hidden relative min-h-screen">
@@ -138,7 +159,6 @@ const App = () => {
 
                 <a>
                   <img
-                    
                     className="h-[44px] lg:h-[51px] cursor-pointer"
                     alt="logo"
                     src={logo}
@@ -147,7 +167,7 @@ const App = () => {
 
                 <div className="justify-end items-center gap-5 md:gap-[30px] flex">
                   <div className="flex justify-end items-center gap-[15px]">
-                    <div
+                    {/* <div
                       onClick={() => setIsCartOpen(!isCartOpen)}
                       className="relative cursor-pointer"
                     >
@@ -171,7 +191,7 @@ const App = () => {
                           {cart.length}
                         </span>
                       )}
-                    </div>
+                    </div> */}
 
                     <svg
                       onClick={() => handleClick()}
@@ -205,7 +225,7 @@ const App = () => {
                     </svg>
                   </div>
 
-                  {isCartOpen && (
+                  {/* {isCartOpen && (
                     <div
                       data-aos="fade-down"
                       className="absolute right-0 top-16 bg-white shadow-lg rounded-lg p-4 w-64"
@@ -247,7 +267,7 @@ const App = () => {
                         Купить сейчас
                       </button>
                     </div>
-                  )}
+                  )} */}
 
                   <div
                     onClick={() => setIsContactOpen(true)}
@@ -261,8 +281,11 @@ const App = () => {
               </div>
 
               <div className="mt-[50px] gap-5 xl:gap-2 flex flex-col justify-between items-center">
-                <div data-aos-duration="1000"
-                    data-aos="fade-up" className="logo-bar w-full flex flex-col items-center justify-center">
+                <div
+                  data-aos-duration="1000"
+                  data-aos="fade-up"
+                  className="logo-bar w-full flex flex-col items-center justify-center"
+                >
                   <img src={logo} alt="blitz" className="w-1/3" />
                   <p className="font-mono text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-center mt-8">
                     Сигнальная одежда и СИЗ <br /> опт / розница
@@ -270,8 +293,10 @@ const App = () => {
                 </div>
 
                 <div
-                data-aos-duration="1000"
-                data-aos="fade-up" className="cards flex flex-row flex-wrap lg:flex-nowrap  mt-6">
+                  data-aos-duration="1000"
+                  data-aos="fade-up"
+                  className="cards flex flex-row flex-wrap lg:flex-nowrap  mt-6"
+                >
                   <div className="carde1 carde w-1/2 md:w-1/3 lg:w-full p-2 flex justify-center cursor-pointer">
                     <a href="#productss">
                       <div className="border pb-0 hover:scale-105 duration-200 border-solid rounded-3xl p-2">
@@ -392,7 +417,6 @@ const App = () => {
               </div>
               <div className="cards z-10 relative flex flex-row justify-center flex-wrap gap-x-8 gap-y-[25px]">
                 {product_data.map((c2, c3) => {
-                  const cartItem = cart.find((item) => item.name === c2.name);
                   return (
                     <div
                       key={c3}
@@ -423,12 +447,12 @@ const App = () => {
                             </div>
                           </div>
                           <div
-                            onClick={() => addToCart(c2)}
+                                    onClick={() => setIsOpen(true)}
                             className="w-full duration-100 hover:scale-105 md:w-[131px] md:h-[35px] pl-7 pr-[26px] pt-[9.17px] pb-[8.83px] bg-[#161616] rounded-[30px] cursor-pointer justify-center items-center flex"
                           >
                             <div className="w-[77px] self-stretch pl-1.5 pr-[5px] pt-[0.17px] pb-[0.83px] cursor-pointer justify-center items-center inline-flex overflow-hidden">
                               <div className="text-center text-white text-[13px] font-medium font-mono cursor-pointer">
-                                {cartItem ? `(${cartItem.quantity})` : "Купить"}
+                                Связаться
                               </div>
                             </div>
                           </div>
@@ -482,10 +506,11 @@ const App = () => {
                   </p>
 
                   <button
-                    className="w-full font-mono bg-green-500 text-white p-2 rounded mt-3"
-                    onClick={() => addToCart(selectedProduct)}
+                    className="w-full font-mono bg-green-500 disabled:bg-red-500 disabled:cursor-not-allowed text-white p-2 rounded mt-3"
+                    disabled={selectedProduct.linkToWB == ""}
+                    onClick={() => window.open(`${selectedProduct.linkToWB}`)}
                   >
-                    Купить
+                    Подробнее на ВБ
                   </button>
                 </div>
               </div>
@@ -762,15 +787,24 @@ const App = () => {
                   <p className="cursor-pointer text-sm sm:text-base font-mono font-light text-[#000000B2] leading-[normal] mb-[6px]">
                     Главный
                   </p>
+                  <a href="#abouts" className="flex">
                   <p className="cursor-pointer text-sm sm:text-base font-mono font-light text-[#000000B2] leading-[normal] mb-[6px]">
                     О нас
                   </p>
-                  <p className="cursor-pointer text-sm sm:text-base font-mono font-light text-[#000000B2] leading-[normal] mb-[6px]">
+                  </a>
+                  
+                  <a href="#contacts" className="flex">
+                  <p
+                    className="cursor-pointer text-sm sm:text-base font-mono font-light text-[#000000B2] leading-[normal] mb-[6px]"
+                  >
                     Связаться
                   </p>
+                  </a>
+                  <a href="#productss">
                   <p className="cursor-pointer text-sm sm:text-base font-mono font-light text-[#000000B2] leading-[normal] ">
                     Продукция
                   </p>
+                  </a>
                 </div>
 
                 {/* <div className="uli">
@@ -811,16 +845,16 @@ const App = () => {
                   </h4>
 
                   <a
-                    href="tel:+998(71) 200-11-66"
+                    href="tel:+8-902-561-31-82"
                     className="text-sm sm:text-base font-['REM'] font-light text-[#000000B2] leading-[normal] mb-3"
                   >
-                    +998(71) 200-11-66
+                    +8-902-561-31-82
                   </a>
                   <a
-                    href="tel:+998(93) 389-35-00"
+                    href="mailto:768100@mail.ru"
                     className="text-sm sm:text-base font-['REM'] font-light text-[#000000B2] leading-[normal]"
                   >
-                    +998(93) 389-35-00
+                    768100@mail.ru
                   </a>
                 </div>
               </div>
@@ -828,6 +862,7 @@ const App = () => {
               <div className="bottome flex flex-col gap-2 sm:flex-row justify-between items-center mt-[90px] mb-10">
                 <div className="lft flex flex-row items-center gap-6">
                   <svg
+                  onClick={()=> window.open("https://t.me/Leprus38", "_blank")}
                     className="cursor-pointer transition-all duration-300 hover:-translate-y-2"
                     xmlns="http://www.w3.org/2000/svg"
                     x="0px"
@@ -838,27 +873,18 @@ const App = () => {
                   >
                     <path d="M 25 2 C 12.309288 2 2 12.309297 2 25 C 2 37.690703 12.309288 48 25 48 C 37.690712 48 48 37.690703 48 25 C 48 12.309297 37.690712 2 25 2 z M 25 4 C 36.609833 4 46 13.390175 46 25 C 46 36.609825 36.609833 46 25 46 C 13.390167 46 4 36.609825 4 25 C 4 13.390175 13.390167 4 25 4 z M 34.087891 14.035156 C 33.403891 14.035156 32.635328 14.193578 31.736328 14.517578 C 30.340328 15.020578 13.920734 21.992156 12.052734 22.785156 C 10.984734 23.239156 8.9960938 24.083656 8.9960938 26.097656 C 8.9960938 27.432656 9.7783594 28.3875 11.318359 28.9375 C 12.146359 29.2325 14.112906 29.828578 15.253906 30.142578 C 15.737906 30.275578 16.25225 30.34375 16.78125 30.34375 C 17.81625 30.34375 18.857828 30.085859 19.673828 29.630859 C 19.666828 29.798859 19.671406 29.968672 19.691406 30.138672 C 19.814406 31.188672 20.461875 32.17625 21.421875 32.78125 C 22.049875 33.17725 27.179312 36.614156 27.945312 37.160156 C 29.021313 37.929156 30.210813 38.335938 31.382812 38.335938 C 33.622813 38.335938 34.374328 36.023109 34.736328 34.912109 C 35.261328 33.299109 37.227219 20.182141 37.449219 17.869141 C 37.600219 16.284141 36.939641 14.978953 35.681641 14.376953 C 35.210641 14.149953 34.672891 14.035156 34.087891 14.035156 z M 34.087891 16.035156 C 34.362891 16.035156 34.608406 16.080641 34.816406 16.181641 C 35.289406 16.408641 35.530031 16.914688 35.457031 17.679688 C 35.215031 20.202687 33.253938 33.008969 32.835938 34.292969 C 32.477938 35.390969 32.100813 36.335938 31.382812 36.335938 C 30.664813 36.335938 29.880422 36.08425 29.107422 35.53125 C 28.334422 34.97925 23.201281 31.536891 22.488281 31.087891 C 21.863281 30.693891 21.201813 29.711719 22.132812 28.761719 C 22.899812 27.979719 28.717844 22.332938 29.214844 21.835938 C 29.584844 21.464938 29.411828 21.017578 29.048828 21.017578 C 28.923828 21.017578 28.774141 21.070266 28.619141 21.197266 C 28.011141 21.694266 19.534781 27.366266 18.800781 27.822266 C 18.314781 28.124266 17.56225 28.341797 16.78125 28.341797 C 16.44825 28.341797 16.111109 28.301891 15.787109 28.212891 C 14.659109 27.901891 12.750187 27.322734 11.992188 27.052734 C 11.263188 26.792734 10.998047 26.543656 10.998047 26.097656 C 10.998047 25.463656 11.892938 25.026 12.835938 24.625 C 13.831938 24.202 31.066062 16.883437 32.414062 16.398438 C 33.038062 16.172438 33.608891 16.035156 34.087891 16.035156 z"></path>
                   </svg>
+
                   <svg
-                    className="cursor-pointer transition-all duration-300 hover:-translate-y-2"
+                  onClick={()=> window.open("https://wa.me/89025613182","_blank")}
                     xmlns="http://www.w3.org/2000/svg"
                     x="0px"
                     y="0px"
                     width="24"
                     height="24"
                     viewBox="0 0 50 50"
-                  >
-                    <path d="M 16 3 C 8.8324839 3 3 8.8324839 3 16 L 3 34 C 3 41.167516 8.8324839 47 16 47 L 34 47 C 41.167516 47 47 41.167516 47 34 L 47 16 C 47 8.8324839 41.167516 3 34 3 L 16 3 z M 16 5 L 34 5 C 40.086484 5 45 9.9135161 45 16 L 45 34 C 45 40.086484 40.086484 45 34 45 L 16 45 C 9.9135161 45 5 40.086484 5 34 L 5 16 C 5 9.9135161 9.9135161 5 16 5 z M 37 11 A 2 2 0 0 0 35 13 A 2 2 0 0 0 37 15 A 2 2 0 0 0 39 13 A 2 2 0 0 0 37 11 z M 25 14 C 18.936712 14 14 18.936712 14 25 C 14 31.063288 18.936712 36 25 36 C 31.063288 36 36 31.063288 36 25 C 36 18.936712 31.063288 14 25 14 z M 25 16 C 29.982407 16 34 20.017593 34 25 C 34 29.982407 29.982407 34 25 34 C 20.017593 34 16 29.982407 16 25 C 16 20.017593 20.017593 16 25 16 z"></path>
-                  </svg>
-                  <svg
                     className="cursor-pointer transition-all duration-300 hover:-translate-y-2"
-                    xmlns="http://www.w3.org/2000/svg"
-                    x="0px"
-                    y="0px"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 50 50"
                   >
-                    <path d="M 25 3 C 12.861562 3 3 12.861562 3 25 C 3 36.019135 11.127533 45.138355 21.712891 46.728516 L 22.861328 46.902344 L 22.861328 29.566406 L 17.664062 29.566406 L 17.664062 26.046875 L 22.861328 26.046875 L 22.861328 21.373047 C 22.861328 18.494965 23.551973 16.599417 24.695312 15.410156 C 25.838652 14.220896 27.528004 13.621094 29.878906 13.621094 C 31.758714 13.621094 32.490022 13.734993 33.185547 13.820312 L 33.185547 16.701172 L 30.738281 16.701172 C 29.349697 16.701172 28.210449 17.475903 27.619141 18.507812 C 27.027832 19.539724 26.84375 20.771816 26.84375 22.027344 L 26.84375 26.044922 L 32.966797 26.044922 L 32.421875 29.564453 L 26.84375 29.564453 L 26.84375 46.929688 L 27.978516 46.775391 C 38.71434 45.319366 47 36.126845 47 25 C 47 12.861562 37.138438 3 25 3 z M 25 5 C 36.057562 5 45 13.942438 45 25 C 45 34.729791 38.035799 42.731796 28.84375 44.533203 L 28.84375 31.564453 L 34.136719 31.564453 L 35.298828 24.044922 L 28.84375 24.044922 L 28.84375 22.027344 C 28.84375 20.989871 29.033574 20.060293 29.353516 19.501953 C 29.673457 18.943614 29.981865 18.701172 30.738281 18.701172 L 35.185547 18.701172 L 35.185547 12.009766 L 34.318359 11.892578 C 33.718567 11.811418 32.349197 11.621094 29.878906 11.621094 C 27.175808 11.621094 24.855567 12.357448 23.253906 14.023438 C 21.652246 15.689426 20.861328 18.170128 20.861328 21.373047 L 20.861328 24.046875 L 15.664062 24.046875 L 15.664062 31.566406 L 20.861328 31.566406 L 20.861328 44.470703 C 11.816995 42.554813 5 34.624447 5 25 C 5 13.942438 13.942438 5 25 5 z"></path>
+                    <path d="M 25 2 C 12.309534 2 2 12.309534 2 25 C 2 29.079097 3.1186875 32.88588 4.984375 36.208984 L 2.0371094 46.730469 A 1.0001 1.0001 0 0 0 3.2402344 47.970703 L 14.210938 45.251953 C 17.434629 46.972929 21.092591 48 25 48 C 37.690466 48 48 37.690466 48 25 C 48 12.309534 37.690466 2 25 2 z M 25 4 C 36.609534 4 46 13.390466 46 25 C 46 36.609534 36.609534 46 25 46 C 21.278025 46 17.792121 45.029635 14.761719 43.333984 A 1.0001 1.0001 0 0 0 14.033203 43.236328 L 4.4257812 45.617188 L 7.0019531 36.425781 A 1.0001 1.0001 0 0 0 6.9023438 35.646484 C 5.0606869 32.523592 4 28.890107 4 25 C 4 13.390466 13.390466 4 25 4 z M 16.642578 13 C 16.001539 13 15.086045 13.23849 14.333984 14.048828 C 13.882268 14.535548 12 16.369511 12 19.59375 C 12 22.955271 14.331391 25.855848 14.613281 26.228516 L 14.615234 26.228516 L 14.615234 26.230469 C 14.588494 26.195329 14.973031 26.752191 15.486328 27.419922 C 15.999626 28.087653 16.717405 28.96464 17.619141 29.914062 C 19.422612 31.812909 21.958282 34.007419 25.105469 35.349609 C 26.554789 35.966779 27.698179 36.339417 28.564453 36.611328 C 30.169845 37.115426 31.632073 37.038799 32.730469 36.876953 C 33.55263 36.755876 34.456878 36.361114 35.351562 35.794922 C 36.246248 35.22873 37.12309 34.524722 37.509766 33.455078 C 37.786772 32.688244 37.927591 31.979598 37.978516 31.396484 C 38.003976 31.104927 38.007211 30.847602 37.988281 30.609375 C 37.969311 30.371148 37.989581 30.188664 37.767578 29.824219 C 37.302009 29.059804 36.774753 29.039853 36.224609 28.767578 C 35.918939 28.616297 35.048661 28.191329 34.175781 27.775391 C 33.303883 27.35992 32.54892 26.991953 32.083984 26.826172 C 31.790239 26.720488 31.431556 26.568352 30.914062 26.626953 C 30.396569 26.685553 29.88546 27.058933 29.587891 27.5 C 29.305837 27.918069 28.170387 29.258349 27.824219 29.652344 C 27.819619 29.649544 27.849659 29.663383 27.712891 29.595703 C 27.284761 29.383815 26.761157 29.203652 25.986328 28.794922 C 25.2115 28.386192 24.242255 27.782635 23.181641 26.847656 L 23.181641 26.845703 C 21.603029 25.455949 20.497272 23.711106 20.148438 23.125 C 20.171937 23.09704 20.145643 23.130901 20.195312 23.082031 L 20.197266 23.080078 C 20.553781 22.728924 20.869739 22.309521 21.136719 22.001953 C 21.515257 21.565866 21.68231 21.181437 21.863281 20.822266 C 22.223954 20.10644 22.02313 19.318742 21.814453 18.904297 L 21.814453 18.902344 C 21.828863 18.931014 21.701572 18.650157 21.564453 18.326172 C 21.426943 18.001263 21.251663 17.580039 21.064453 17.130859 C 20.690033 16.232501 20.272027 15.224912 20.023438 14.634766 L 20.023438 14.632812 C 19.730591 13.937684 19.334395 13.436908 18.816406 13.195312 C 18.298417 12.953717 17.840778 13.022402 17.822266 13.021484 L 17.820312 13.021484 C 17.450668 13.004432 17.045038 13 16.642578 13 z M 16.642578 15 C 17.028118 15 17.408214 15.004701 17.726562 15.019531 C 18.054056 15.035851 18.033687 15.037192 17.970703 15.007812 C 17.906713 14.977972 17.993533 14.968282 18.179688 15.410156 C 18.423098 15.98801 18.84317 16.999249 19.21875 17.900391 C 19.40654 18.350961 19.582292 18.773816 19.722656 19.105469 C 19.863021 19.437122 19.939077 19.622295 20.027344 19.798828 L 20.027344 19.800781 L 20.029297 19.802734 C 20.115837 19.973483 20.108185 19.864164 20.078125 19.923828 C 19.867096 20.342656 19.838461 20.445493 19.625 20.691406 C 19.29998 21.065838 18.968453 21.483404 18.792969 21.65625 C 18.639439 21.80707 18.36242 22.042032 18.189453 22.501953 C 18.016221 22.962578 18.097073 23.59457 18.375 24.066406 C 18.745032 24.6946 19.964406 26.679307 21.859375 28.347656 C 23.05276 29.399678 24.164563 30.095933 25.052734 30.564453 C 25.940906 31.032973 26.664301 31.306607 26.826172 31.386719 C 27.210549 31.576953 27.630655 31.72467 28.119141 31.666016 C 28.607627 31.607366 29.02878 31.310979 29.296875 31.007812 L 29.298828 31.005859 C 29.655629 30.601347 30.715848 29.390728 31.224609 28.644531 C 31.246169 28.652131 31.239109 28.646231 31.408203 28.707031 L 31.408203 28.708984 L 31.410156 28.708984 C 31.487356 28.736474 32.454286 29.169267 33.316406 29.580078 C 34.178526 29.990889 35.053561 30.417875 35.337891 30.558594 C 35.748225 30.761674 35.942113 30.893881 35.992188 30.894531 C 35.995572 30.982516 35.998992 31.07786 35.986328 31.222656 C 35.951258 31.624292 35.8439 32.180225 35.628906 32.775391 C 35.523582 33.066746 34.975018 33.667661 34.283203 34.105469 C 33.591388 34.543277 32.749338 34.852514 32.4375 34.898438 C 31.499896 35.036591 30.386672 35.087027 29.164062 34.703125 C 28.316336 34.437036 27.259305 34.092596 25.890625 33.509766 C 23.114812 32.325956 20.755591 30.311513 19.070312 28.537109 C 18.227674 27.649908 17.552562 26.824019 17.072266 26.199219 C 16.592866 25.575584 16.383528 25.251054 16.208984 25.021484 L 16.207031 25.019531 C 15.897202 24.609805 14 21.970851 14 19.59375 C 14 17.077989 15.168497 16.091436 15.800781 15.410156 C 16.132721 15.052495 16.495617 15 16.642578 15 z"></path>
                   </svg>
                 </div>
                 <p className="cursor-pointer text-[#000000B2] font-['REM'] font-light text-center text-sm sm:text-base">
@@ -892,7 +918,7 @@ const App = () => {
                   </svg>
                 </button>
                 <h2 className="text-lg lg:text-xl font-mono font-bold mb-3">
-                  {fromCart ? "Заказ" : "Свяжитесь с нами"}
+                  Свяжитесь с нами
                 </h2>
                 <div className="phone flex mb-3 flex-col gap-[2px] w-full">
                   <label
@@ -955,6 +981,57 @@ const App = () => {
               </div>
             </div>
           )}
+
+
+
+{isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 className="text-xl font-semibold mb-4 font-mono">Свяжитесь с нами</h2>
+            <p className="mb-4 text-gray-700 font-mono">Телефон: +8-902-561-31-82</p>
+            <p className="mb-4 text-gray-700 font-mono">Оставьте заявку на обратный звонок:</p>
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <input
+                type="text"
+                name="name"
+                placeholder="Ваше имя"
+                value={formData.name}
+                onChange={handleChange}
+                className="w-full p-2 border font-mono border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+              <input
+                type="tel"
+                name="phone"
+                inputMode="numeric"
+                placeholder="Ваш телефон"
+                value={formData.phone}
+                onChange={handleChange}
+                className="w-full p-2 border font-mono border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+              <div className="flex justify-end space-x-2">
+                <button
+                  type="button"
+                  className="px-4 py-2 font-mono transition-colors bg-gray-400 text-white rounded-md hover:bg-gray-500"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Отмена
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 font-mono transition-colors bg-[#8BCC00] text-white rounded-md hover:bg-[#8cb632e1]"
+                >
+                  Отправлять
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+
+          
         </Wrapper>
         <div
           className={`menu-modal-drawer transition-all duration-300 ${
