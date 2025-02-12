@@ -152,10 +152,10 @@ export const product_data = [
   {
     name: "Очки защитные",
     colors: "Прозрачные, темные, янтарные",
-    sizes: "-",
-    linkToWB: "",
+    sizes: "5",
+    linkToWB: "https://www.wildberries.ru/catalog/279773871/detail.aspx?targetUrl=GP",
     rec: "Соотвествуют требованиям безопасности, при необходимости предоставим декларацию соотвествия.",
-    desc: "Отгрузка в коробках по 20 штук.",
+    desc: "5 видов очков. Отгрузка в коробках по 20 штук.",
 
     images: [
       {
