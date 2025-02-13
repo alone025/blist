@@ -510,7 +510,7 @@ const App = () => {
                     disabled={selectedProduct.linkToWB == ""}
                     onClick={() => window.open(`${selectedProduct.linkToWB}`)}
                   >
-                    Подробнее на ВБ
+                    Подробнее на Wildberries
                   </button>
                 </div>
               </div>
@@ -676,14 +676,14 @@ const App = () => {
                       data-aos-duration="1000"
                       className="text-[26px] sm:text-[30px] md:text-[34px] lg:text-[38px] text-[#373737] font-mono font-bold leading-[normal]"
                     >
-                      Контакты
+                      Форма обратной связи
                     </h3>
                     <p
                       data-aos="fade-up"
                       data-aos-duration="1000"
                       className="font-mono text-sm sm:text-base md:text-xl lg:text-2xl font-light text-[#000000B2] md:leading-[34px] tracking-[0.48px] max-w-[832px] mt-4"
                     >
-                      С нами связаться вы можете по:
+                      Напишите нам и мы обязательно перезвоним:
                     </p>
                   </div>
 
@@ -773,9 +773,7 @@ const App = () => {
                 <div className="lg flex flex-col gap-5">
                   <img src={logo} alt="" className="max-w-[167px]" />
                   <p className="text-sm sm:text-base text-[#000000B2] font-mono max-w-[290px] font-light">
-                    Мы, компания, окторза занимаяется оптовой и рознично
-                    продажей сигнальной одежды. Являемся продавцами на валберис
-                    более года.
+                  Мы, компания, которая занимается оптовой и рознично продажей сигнальной одежды. Являемся продавцами на Wildberries более 3-х лет.
                   </p>
                 </div>
 
@@ -845,16 +843,16 @@ const App = () => {
                   </h4>
 
                   <a
-                    href="tel:+8-902-561-31-82"
+                    href="tel:+7-902-561-31-82"
                     className="text-sm sm:text-base font-['REM'] font-light text-[#000000B2] leading-[normal] mb-3"
                   >
-                    +8-902-561-31-82
+                    +7-902-561-31-82
                   </a>
                   <a
-                    href="mailto:768100@mail.ru"
-                    className="text-sm sm:text-base font-['REM'] font-light text-[#000000B2] leading-[normal]"
+                    
+                    className="text-sm sm:text-base font-mono font-light text-[#000000B2] leading-[normal]"
                   >
-                    768100@mail.ru
+                    Время работы: <br /> 6:00 - 17:00 МСК
                   </a>
                 </div>
               </div>
@@ -988,7 +986,6 @@ const App = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
             <h2 className="text-xl font-semibold mb-4 font-mono">Свяжитесь с нами</h2>
-            <p className="mb-4 text-gray-700 font-mono">Телефон: +8-902-561-31-82</p>
             <p className="mb-4 text-gray-700 font-mono">Оставьте заявку на обратный звонок:</p>
             <form onSubmit={handleSubmit} className="space-y-3">
               <input
