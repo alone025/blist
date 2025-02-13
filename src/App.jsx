@@ -587,8 +587,7 @@ const App = () => {
                       data-aos-duration="1000"
                       className="font-mono text-sm sm:text-base md:text-xl lg:text-2xl font-light text-[#000000B2] md:leading-[34px] tracking-[0.48px] max-w-[832px] mt-4"
                     >
-                      Осуществляем доставку по все России с центрального склада
-                      в г.Москва.
+                      Осуществляем доставку по всей России с центрального склада в г. Москва.
                     </p>
                   </div>
                 </div>
@@ -773,7 +772,7 @@ const App = () => {
                 <div className="lg flex flex-col gap-5">
                   <img src={logo} alt="" className="max-w-[167px]" />
                   <p className="text-sm sm:text-base text-[#000000B2] font-mono max-w-[290px] font-light">
-                  Мы, компания, которая занимается оптовой и рознично продажей сигнальной одежды. Являемся продавцами на Wildberries более 3-х лет.
+                  Мы, компания, которая занимается оптовой и розничной продажей сигнальной одежды. Являемся продавцами на Wildberries более 3-х лет.
                   </p>
                 </div>
 
